@@ -1,5 +1,5 @@
 # Pong
-The classic 1970s Pong game, remade! First to 5 wins!
+The classic 1970s Pong game, remade! First to 5 points wins!
 This project was created for a school ICS4U assignment.
 
 ### Starting screen:
