@@ -12,7 +12,7 @@ End screen:
 ![image](https://github.com/sai3000pro/Pong/assets/96095408/df76475f-07fa-4782-9268-cd0699dd25e3)
 
 Gameplay:
-https://github.com/sai3000pro/Pong/assets/96095408/fd4e59c8-dde5-4b8a-9fef-21dee904d09f
+![video](https://github.com/sai3000pro/Pong/assets/96095408/fd4e59c8-dde5-4b8a-9fef-21dee904d09f)
 
 ## Controls
 
