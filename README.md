@@ -12,12 +12,12 @@ End screen:
 ![image](https://github.com/sai3000pro/Pong/assets/96095408/df76475f-07fa-4782-9268-cd0699dd25e3)
 
 Gameplay:
-![video](https://github.com/sai3000pro/Pong/assets/96095408/fd4e59c8-dde5-4b8a-9fef-21dee904d09f)
+https://github.com/sai3000pro/Pong/assets/96095408/fd4e59c8-dde5-4b8a-9fef-21dee904d09f
 
 ## Controls
 
-Press 'space' to start the game.
+Press ```space``` to start the game.
 
-Player 1: w to move paddle up, s to move paddle down.
+Player 1: ```w``` to move paddle up, ```s``` to move paddle down.
 
-Player 2: ↑ to move paddle up, ↓ to move paddle down.
+Player 2: ```↑``` to move paddle up, ```↓``` to move paddle down.
