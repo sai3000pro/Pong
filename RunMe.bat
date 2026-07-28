@@ -1,3 +1,3 @@
 @echo off
-javac src/PingPong/*.java -d .
-java Main
+cd /d "%~dp0"
+"runtime\bin\javaw.exe" -cp bin Main
