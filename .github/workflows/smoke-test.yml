@@ -13,6 +13,7 @@ on:
       - 'runtime/**'
       - 'bin/**'
       - 'RunMe.*'
+      - '.github/smoke.sh'
       - '.github/workflows/smoke-test.yml'
 
 jobs:
@@ -26,7 +27,6 @@ jobs:
           - { os: windows-latest, label: windows-x64,   java: runtime/windows-x64/bin/java.exe }
           - { os: ubuntu-latest,  label: linux-x64,     java: runtime/linux-x64/bin/java }
           - { os: macos-latest,   label: macos-aarch64, java: runtime/macos-aarch64/bin/java }
-          - { os: macos-13,       label: macos-x64,     java: runtime/macos-x64/bin/java }
     steps:
       - uses: actions/checkout@v4
 
@@ -34,47 +34,15 @@ jobs:
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y xvfb
 
-      - name: Runtime sanity check
+      - name: Smoke test ${{ matrix.label }}
         shell: bash
-        run: |
-          "${{ matrix.java }}" -version
-          "${{ matrix.java }}" --list-modules | grep -q '^java.desktop' \
-            && echo "java.desktop module present"
+        run: bash .github/smoke.sh "${{ matrix.java }}" "${{ matrix.label }}"
 
-      - name: Launch game headlessly and verify it stays up
+      # The Apple Silicon runner also exercises the Intel (x64) runtime through
+      # Rosetta 2 (preinstalled on GitHub macOS runners). Non-fatal: GitHub's
+      # native Intel runners are deprecated, so this is best-effort coverage.
+      - name: Smoke test macos-x64 via Rosetta
+        if: runner.os == 'macOS'
+        continue-on-error: true
         shell: bash
-        env:
-          JAVA: ${{ matrix.java }}
-          LABEL: ${{ matrix.label }}
-        run: |
-          set -u
-          launch() {
-            if [ "$RUNNER_OS" = "Linux" ]; then
-              xvfb-run -a "$JAVA" -cp bin Main
-            else
-              "$JAVA" -cp bin Main
-            fi
-          }
-          launch > game.log 2>&1 &
-          PID=$!
-          ok=0
-          for i in $(seq 1 15); do
-            if ! kill -0 "$PID" 2>/dev/null; then
-              wait "$PID"; code=$?
-              if [ "$code" -eq 0 ]; then
-                echo "Game exited cleanly after ${i}s"; ok=1
-              else
-                echo "FAIL: game exited early (code $code) after ${i}s"
-              fi
-              break
-            fi
-            sleep 1
-          done
-          if kill -0 "$PID" 2>/dev/null; then
-            echo "PASS: $LABEL runtime launched and stayed up for 15s"
-            ok=1
-            kill "$PID" 2>/dev/null || true
-          fi
-          echo "----- game.log -----"
-          cat game.log || true
-          [ "$ok" -eq 1 ]
+        run: bash .github/smoke.sh "runtime/macos-x64/bin/java" "macos-x64-rosetta"

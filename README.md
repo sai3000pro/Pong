@@ -72,10 +72,12 @@ and cutting a release).
 
 Because the macOS and Linux runtimes are cross-built, a
 [**GitHub Actions smoke test**](.github/workflows/smoke-test.yml) verifies them on real hardware —
-on every release, and on any change to the runtimes or launchers. A 4-way matrix
-(`windows-latest`, `ubuntu-latest` + Xvfb, `macos-latest` Apple Silicon, `macos-13` Intel):
+on every release, and on any change to the runtimes or launchers. It runs on
+`windows-latest`, `ubuntu-latest` (with an Xvfb virtual display), and `macos-latest` (Apple Silicon),
+and additionally exercises the Intel (`macos-x64`) runtime on the Apple Silicon runner through
+**Rosetta 2**. For each runtime it:
 
-1. checks each bundled runtime reports the right version and includes `java.desktop`;
+1. checks the bundled runtime reports the right version and includes `java.desktop`;
 2. **launches the actual game headlessly** and asserts it starts and stays running;
 3. confirms the Unix runtime binaries keep their executable bit after a fresh checkout.
 
