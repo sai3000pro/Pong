@@ -1,0 +1,7 @@
+# Keep Unix launchers LF so they run on macOS/Linux
+*.sh        text eol=lf
+*.command   text eol=lf
+RunMe.bat   text eol=crlf
+
+# Treat bundled runtime as binary (no line-ending munging)
+runtime/**  binary
