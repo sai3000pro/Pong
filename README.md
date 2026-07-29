@@ -5,6 +5,10 @@ This project was created for a school ICS4U assignment.
 ## How to run
 **No Java installation required** — a Java runtime is bundled with the project.
 
+**Easiest:** grab the zip for your OS from the [**latest release**](https://github.com/sai3000pro/Pong/releases/latest) (smaller, one download for your platform), unzip, and run the launcher inside.
+
+Or use this repository directly:
+
 1. Download the project (green **Code** button → **Download ZIP**, then unzip) or clone it.
 2. Launch it for your operating system:
    - **Windows:** double-click **`RunMe.bat`**
